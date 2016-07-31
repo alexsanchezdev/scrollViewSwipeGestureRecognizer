@@ -10,28 +10,22 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let MAX_SWIPES_IN_SAME_DIRECTION = 2
-    
     @IBOutlet weak var scrollView: UIScrollView!
+    
     var images = [UIImageView]()
-    var swipesToRight = 0; var swipesToLeft = 0
+    let MAX_PAGE = 2
+    let MIN_PAGE = 0
+    var pageEnabled = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector (self.respondToSwipeGesture(gesture:)))
-        swipeRight.direction = .right
-        self.view.addGestureRecognizer(swipeRight)
-        
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector (self.respondToSwipeGesture(gesture:)))
-        swipeLeft.direction = .left
-        self.view.addGestureRecognizer(swipeLeft)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
         var contentWidth: CGFloat = 0.0
+        let scrollWidth = scrollView.frame.size.width
         
         for x in 0...2{
             let image = UIImage(named: "icon\(x).png")
@@ -39,7 +33,7 @@ class ViewController: UIViewController {
             images.append(imageView)
             
             var newX: CGFloat = 0.0
-            newX = scrollView.frame.size.width / 2 + scrollView.frame.size.width * CGFloat(x)
+            newX = scrollWidth / 2 + scrollWidth * CGFloat(x)
             
             contentWidth += newX
             
@@ -49,33 +43,28 @@ class ViewController: UIViewController {
         
         scrollView.clipsToBounds = false
         
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 3, height: view.frame.size.height)
+        scrollView.contentSize = CGSize(width: contentWidth, height: view.frame.size.height)
     }
-
-    func respondToSwipeGesture(gesture: UISwipeGestureRecognizer){
-        if (swipesToLeft < MAX_SWIPES_IN_SAME_DIRECTION && gesture.direction == UISwipeGestureRecognizerDirection.left)
-        {
-            let point: CGPoint = CGPoint(x: scrollView.frame.size.width, y: 0.0)
-            scrollView.setContentOffset(point, animated: true)
-            swipesToLeft += 1
-            swipesToRight -= 1
-            print("Swiped left")
-        }
+    
+    @IBAction func detectSwipe (_ sender: UISwipeGestureRecognizer){
+        if (pageEnabled < MAX_PAGE && sender.direction == UISwipeGestureRecognizerDirection.left){
+                    moveScrollView(direction: 1)
+                }
         
-//            switch gesture.direction {
-//            case UISwipeGestureRecognizerDirection.right:
-//                scrollView.setContentOffset(point, animated: true)
-//                print ("Swiped right")
-//            case UISwipeGestureRecognizerDirection.left:
-//                scrollView.setContentOffset(point, animated: true)
-//                print("Swiped left")
-//            default:
-//                break
-//            }
-        
-        
+                if (pageEnabled > MIN_PAGE && sender.direction == UISwipeGestureRecognizerDirection.right)
+                {
+                    moveScrollView(direction: -1)
+                }
+    }
+    
+    func moveScrollView(direction: Int)
+    {
+        pageEnabled = pageEnabled + direction
+        let point: CGPoint = CGPoint(x: scrollView.frame.size.width * CGFloat(pageEnabled), y: 0.0)
+        scrollView.setContentOffset(point, animated: true)
     }
 }
+
 
 
 

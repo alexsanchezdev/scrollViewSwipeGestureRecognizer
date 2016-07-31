@@ -21,9 +21,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sky" translatesAutoresizingMaskIntoConstraints="NO" id="eZx-TJ-5wd">
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="SWT-mG-XbT" appends="YES" id="CCk-Ac-uYJ"/>
-                                </connections>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sun" translatesAutoresizingMaskIntoConstraints="NO" id="P9f-dk-riH">
                                 <constraints>
@@ -36,13 +33,14 @@
                                     <constraint firstAttribute="height" constant="216" id="VNV-as-P9H"/>
                                 </constraints>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwe-SX-ILR">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwe-SX-ILR">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="7FE-h2-gj6"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JSG-nR-zqf" secondAttribute="bottom" id="5Ns-m6-h3x"/>
                             <constraint firstItem="hwe-SX-ILR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8ed-FK-cTs"/>
@@ -57,13 +55,26 @@
                             <constraint firstItem="P9f-dk-riH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="hz3-2d-bnk"/>
                             <constraint firstItem="eZx-TJ-5wd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="uA2-An-P4R"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="CQ7-lc-JpY" appends="YES" id="GnX-IT-O2e"/>
+                            <outletCollection property="gestureRecognizers" destination="H1x-4B-fza" appends="YES" id="4Sh-GE-c0I"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="scrollView" destination="hwe-SX-ILR" id="VG0-dA-dLR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="SWT-mG-XbT"/>
+                <swipeGestureRecognizer direction="right" id="CQ7-lc-JpY">
+                    <connections>
+                        <action selector="detectSwipe:" destination="BYZ-38-t0r" id="dfQ-sc-vpy"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="H1x-4B-fza">
+                    <connections>
+                        <action selector="detectSwipe:" destination="BYZ-38-t0r" id="ygi-9g-wl6"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="118.84057971014494" y="123.91304347826087"/>
         </scene>
