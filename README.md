@@ -9,5 +9,6 @@ For the interface:
 3. Select one of the Swipe Gesture Recognizer in the hierarchy and go to its attribute page. Change Swipe to Left.
 4. Make sure the other recognizer has the Swipe attribute to Right
 5. Select UIScrollView and uncheck Scrolling enabled
+6. Connect detectSwipe() to both recognizers.
 
 HAVE FUN!
