@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     var images = [UIImageView]()
     let MAX_PAGE = 2
     let MIN_PAGE = 0
-    var pageEnabled = 0
+    var currentPage = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +47,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func detectSwipe (_ sender: UISwipeGestureRecognizer){
-        if (pageEnabled < MAX_PAGE && sender.direction == UISwipeGestureRecognizerDirection.left){
+        if (currentPage < MAX_PAGE && sender.direction == UISwipeGestureRecognizerDirection.left){
                     moveScrollView(direction: 1)
                 }
         
-                if (pageEnabled > MIN_PAGE && sender.direction == UISwipeGestureRecognizerDirection.right)
+                if (currentPage > MIN_PAGE && sender.direction == UISwipeGestureRecognizerDirection.right)
                 {
                     moveScrollView(direction: -1)
                 }
@@ -59,8 +59,8 @@ class ViewController: UIViewController {
     
     func moveScrollView(direction: Int)
     {
-        pageEnabled = pageEnabled + direction
-        let point: CGPoint = CGPoint(x: scrollView.frame.size.width * CGFloat(pageEnabled), y: 0.0)
+        currentPage = currentPage + direction
+        let point: CGPoint = CGPoint(x: scrollView.frame.size.width * CGFloat(currentPage), y: 0.0)
         scrollView.setContentOffset(point, animated: true)
     }
 }
