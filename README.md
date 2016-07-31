@@ -1,4 +1,4 @@
-# UIScrollView movement using Swipe Gesture Recognizer
+# UIScrollView movement using Swipe Gesture Recognizer - Swift 3
 
 Grab the code from the ViewController.swift file.
 
