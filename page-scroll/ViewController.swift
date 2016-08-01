@@ -41,27 +41,40 @@ class ViewController: UIViewController {
             imageView.frame = CGRect(x: newX - 75, y: (scrollView.frame.size.height / 2) - 75, width: 150, height: 150)
         }
         
+        self.images[self.currentPage].transform = CGAffineTransform.init(scaleX: 1.4, y: 1.4)
+        
         scrollView.clipsToBounds = false
         
         scrollView.contentSize = CGSize(width: contentWidth, height: view.frame.size.height)
     }
     
-    @IBAction func detectSwipe (_ sender: UISwipeGestureRecognizer){
-        if (currentPage < MAX_PAGE && sender.direction == UISwipeGestureRecognizerDirection.left){
+    @IBAction func detectSwipe (_ sender: UISwipeGestureRecognizer) {
+        if (currentPage < MAX_PAGE && sender.direction == UISwipeGestureRecognizerDirection.left) {
                     moveScrollView(direction: 1)
-                }
+           
+        }
         
-                if (currentPage > MIN_PAGE && sender.direction == UISwipeGestureRecognizerDirection.right)
-                {
+        if (currentPage > MIN_PAGE && sender.direction == UISwipeGestureRecognizerDirection.right) {
                     moveScrollView(direction: -1)
-                }
+        }
     }
     
-    func moveScrollView(direction: Int)
-    {
+    func moveScrollView(direction: Int){
         currentPage = currentPage + direction
         let point: CGPoint = CGPoint(x: scrollView.frame.size.width * CGFloat(currentPage), y: 0.0)
         scrollView.setContentOffset(point, animated: true)
+        
+        // Create a animation to increase the actual icon on screen
+        UIView.animate(withDuration: 0.4){
+            self.images[self.currentPage].transform = CGAffineTransform.init(scaleX: 1.4, y: 1.4)
+            
+            // Revert icon size of the non-active pages
+            for x in 0..<self.images.count {
+                if (x != self.currentPage) {
+                    self.images[x].transform = CGAffineTransform.identity
+                }
+            }
+        }
     }
 }
 
